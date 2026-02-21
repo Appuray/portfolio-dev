@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { NavLink } from "react-router-dom";
+// NavLink import yahan se hata diya gaya hai taaki Vercel error na de
 import styled from "styled-components";
 import { Github } from "../components/AllSvgs";
 
@@ -103,10 +103,10 @@ const Card = (props) => {
         })}
       </Tags>
       <Footer>
-        <Link href={demo} target="_blank">
+        <Link href={demo} target="_blank" rel="noreferrer">
           Visit
         </Link>
-        <Git href={github} target="_blank">
+        <Git href={github} target="_blank" rel="noreferrer">
           <Github width={30} height={30} />
         </Git>
       </Footer>
