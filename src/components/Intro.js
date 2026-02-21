@@ -46,6 +46,7 @@ const SubBox = styled.div`
     position: absolute;
     bottom: 0;
     left: 50%;
+    /* Yeh CSS placement ko wapas le aaya hai */
     transform: translate(-50%, 0%);
     width: 100%;
     height: auto;
@@ -116,19 +117,18 @@ const Intro = () => {
         </Text>
       </SubBox>
       <SubBox>
+        {/* FIX: Animation ko wrapper div par lagaya hai, image par nahi */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
+          animate={{ opacity: 1, y: [0, -15, 0] }} // Fade in + Floating dono yahan hain
+          transition={{
+            opacity: { duration: 1, delay: 2 },
+            y: { repeat: Infinity, duration: 4, ease: "easeInOut" },
+          }}
+          style={{ width: "100%", height: "100%", position: "relative" }}
         >
-          {/* Hawa me float karne wala effect yaha hai */}
-          <motion.img
-            className="pic"
-            src={Me}
-            alt="Profile Pic"
-            animate={{ y: [0, -15, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-          />
+          {/* Image ab normal tag hai, CSS placement lega */}
+          <img className="pic" src={Me} alt="Profile Pic" />
         </motion.div>
       </SubBox>
     </Box>
