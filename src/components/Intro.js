@@ -13,6 +13,9 @@ const Box = styled(motion.div)`
   height: 55vh;
   display: flex;
 
+  /* Thoda subtle shadow add kiya hai for 3D depth */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
   background:
     linear-gradient(
         to right,
@@ -33,6 +36,7 @@ const Box = styled(motion.div)`
 
   z-index: 1;
 `;
+
 const SubBox = styled.div`
   width: 50%;
   position: relative;
@@ -45,10 +49,12 @@ const SubBox = styled.div`
     transform: translate(-50%, 0%);
     width: 100%;
     height: auto;
+    /* Image drop shadow for better pop */
+    filter: drop-shadow(0px -10px 15px rgba(0, 0, 0, 0.2));
   }
 `;
 
-const Text = styled.div`
+const Text = styled(motion.div)`
   font-size: calc(1em + 1.5vw);
   color: ${(props) => props.theme.body};
   padding: 2rem;
@@ -58,12 +64,39 @@ const Text = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
 
+  h1 {
+    font-size: calc(2em + 1.5vw);
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: calc(1em + 1.5vw);
+    font-weight: 500;
+  }
+
   & > *:last-child {
-    color: ${(props) => `rgba(${props.theme.bodyRgba},0.6)`};
-    font-size: calc(0.5rem + 1.5vw);
-    font-weight: 300;
+    color: ${(props) => `rgba(${props.theme.bodyRgba},0.7)`};
+    font-size: calc(0.6rem + 1vw);
+    font-weight: 400;
+    margin-top: 1rem;
+    line-height: 1.5;
   }
 `;
+
+// Text Reveal ke liye Framer Motion Variants
+const textVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 1, delay: 1.5, staggerChildren: 0.3 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 const Intro = () => {
   return (
@@ -73,10 +106,13 @@ const Intro = () => {
       transition={{ type: "spring", duration: 2, delay: 1 }}
     >
       <SubBox>
-        <Text>
-          <h1>Hi,</h1>
-          <h3>I'm Appu.</h3>
-          <h6>I design and Code simple yet beautiful websites.</h6>
+        <Text variants={textVariants} initial="hidden" animate="visible">
+          <motion.h1 variants={itemVariants}>Hi,</motion.h1>
+          <motion.h3 variants={itemVariants}>I'm Appu.</motion.h3>
+          <motion.h6 variants={itemVariants}>
+            I craft pixel-perfect UI & vibe with AI to build rapid web
+            solutions.
+          </motion.h6>
         </Text>
       </SubBox>
       <SubBox>
@@ -85,7 +121,14 @@ const Intro = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
         >
-          <img className="pic" src={Me} alt="Profile Pic" />
+          {/* Hawa me float karne wala effect yaha hai */}
+          <motion.img
+            className="pic"
+            src={Me}
+            alt="Profile Pic"
+            animate={{ y: [0, -15, 0] }}
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          />
         </motion.div>
       </SubBox>
     </Box>
