@@ -35,9 +35,25 @@ const Main = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
+  /* FIX: Text Overflow ke liye */
+  overflow-y: auto;
+
   &:hover {
     color: ${(props) => props.theme.body};
     background-color: ${(props) => props.theme.text};
+  }
+
+  /* Custom Clean Scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.text};
+    border-radius: 10px;
+  }
+  /* Hover karne par scrollbar ka color bhi badal jayega */
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.body};
   }
 `;
 

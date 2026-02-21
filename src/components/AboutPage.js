@@ -16,12 +16,13 @@ const Box = styled.div`
   position: relative;
   overflow: hidden;
 `;
+
 const float = keyframes`
 0% { transform: translateY(-10px) }
 50% { transform: translateY(15px) translateX(15px) }
 100% { transform: translateY(-10px) }
-
 `;
+
 const Spaceman = styled.div`
   position: absolute;
   top: 10%;
@@ -33,6 +34,7 @@ const Spaceman = styled.div`
     height: auto;
   }
 `;
+
 const Main = styled.div`
   border: 2px solid ${(props) => props.theme.text};
   color: ${(props) => props.theme.text};
@@ -41,9 +43,14 @@ const Main = styled.div`
   height: 60vh;
   z-index: 3;
   line-height: 1.5;
+
+  /* FIX: Text Overflow ke liye */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: auto; /* Text bada ho toh scroll ho jayega */
+
   font-size: calc(0.6rem + 1vw);
   backdrop-filter: blur(4px);
 
@@ -52,6 +59,15 @@ const Main = styled.div`
   top: 10rem;
   font-family: "Ubuntu Mono", monospace;
   font-style: italic;
+
+  /* Custom Clean Scrollbar taaki design professional lage */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.text};
+    border-radius: 10px;
+  }
 `;
 
 const AboutPage = () => {
@@ -67,14 +83,17 @@ const AboutPage = () => {
           <img src={astronaut} alt="spaceman" />
         </Spaceman>
         <Main>
-          I'm a front-end developer located in India. I love to create simple
-          yet beautiful websites with great user experience.
-          <br /> <br />
-          I'm interested in the whole frontend stack Like trying new things and
-          building great projects. I'm an independent freelancer and work
-          remotely. I love to write code and read books.
-          <br /> <br />I believe everything is an Art when you put your
-          consciousness in it. You can connect with me via social links.
+          {/* Text ko proper align rakhne ke liye ek div me wrap kiya hai */}
+          <div>
+            I'm a front-end developer located in India. I love to create simple
+            yet beautiful websites with great user experience.
+            <br /> <br />
+            I'm interested in the whole frontend stack like trying new things
+            and building great projects. I'm an independent freelancer and work
+            remotely. I love to write code and read books.
+            <br /> <br />I believe everything is an Art when you put your
+            consciousness in it. You can connect with me via social links.
+          </div>
         </Main>
 
         <BigTitle text="ABOUT" top="10%" left="5%" />
